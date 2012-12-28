@@ -3,7 +3,7 @@
 set -e
 
 # how many check_http's can we do we at once?
-n=1
+n=16
 
 while true
 do
