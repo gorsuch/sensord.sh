@@ -4,6 +4,12 @@ function log {
   printf "%s\n" "app=sensord loction=$location $1"
 }
 
+if [ -z "$1" ]
+then
+  printf "%s\n" "usage: $0 <url>"
+  exit 1
+fi
+
 if [ -z "$location" ]
 then
   location=dev
