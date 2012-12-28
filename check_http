@@ -1,0 +1,16 @@
+#!/bin/bash
+
+location=dev
+timestamp=$(date +%s)
+url=$1
+timeout=10
+options="-o /dev/null -s -k -m $timeout"
+format="%{http_code}|%{time_total}"
+curl_result=$(curl $options -w $format $url)
+curl_status=$?
+digest=$(echo -n $url | sha1sum | cut -d ' ' -f 1)
+http_code=$(echo -n $curl_result | cut -d '|' -f 1)
+time_total=$(echo -n $curl_result | cut -d '|' -f 2)
+base="sensor.${location}.${digest}"
+
+printf "%s\n" "measure=${base}.latency value=${time_total} timestamp=${timestamp}"

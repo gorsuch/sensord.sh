@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# how many check_http's can we do we at once?
+n=16
+
+while true
+do
+  xargs -P $n -I{} ./check_http {} < sites.txt
+  sleep 3
+done
