@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function log {
+  printf "%s\n" "app=sensord loction=$location $1"
+}
+
 location=dev
 timestamp=$(date +%s)
 url=$1
@@ -13,4 +17,10 @@ http_code=$(echo -n $curl_result | cut -d '|' -f 1)
 time_total=$(echo -n $curl_result | cut -d '|' -f 2)
 base="sensor.${location}.${digest}"
 
-printf "%s\n" "measure=${base}.latency value=${time_total} timestamp=${timestamp}"
+if [ $curl_status -eq 0 ]
+then
+  log "measure=${base}.latency value=${time_total} timestamp=${timestamp}"
+  log "measure=${base}.availability value=100 timestamp=${timestamp}"
+else
+  log "measure=${base}.availability value=0 timestamp=${timestamp}"
+fi

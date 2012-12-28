@@ -1,7 +1,9 @@
 #!/bin/bash
 
+set -e
+
 # how many check_http's can we do we at once?
-n=16
+n=1
 
 while true
 do
