@@ -4,7 +4,11 @@ function log {
   printf "%s\n" "app=sensord loction=$location $1"
 }
 
-location=dev
+if [ -z "$location" ]
+then
+  location=dev
+fi
+
 timestamp=$(date +%s)
 url=$1
 timeout=10
