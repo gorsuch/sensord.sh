@@ -3,10 +3,18 @@
 set -e
 
 # how many check_http's can we do we at once?
-n=16
+if [ -z "$n" ]
+then
+  n=16
+fi
+
+if [ -z "$cycle_time" ]
+then
+  cycle_time=3
+fi
 
 while true
 do
   xargs -P $n -I{} ./check_http {} < sites.txt
-  sleep 3
+  sleep $cycle_time
 done
