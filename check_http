@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function log {
-  printf "%s\n" "app=sensord loction=$location $1"
+  printf "%s\n" "app=sensord location=$location $1"
 }
 
 if [ -z "$1" ]
